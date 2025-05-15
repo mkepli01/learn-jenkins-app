@@ -25,7 +25,7 @@ pipeline {
             steps{
                 sh'''
                     echo "Running tests..."
-                    test -f src/index.html || exit 1
+                    test -f build/index.html || exit 1
                     # npm test
                 '''
             }

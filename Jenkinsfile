@@ -39,7 +39,7 @@ pipeline {
     }
 
     post{
-        aways{
+        always{
             junit 'test-results/junit.xml'
         }
     }

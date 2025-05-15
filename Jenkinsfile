@@ -37,4 +37,10 @@ pipeline {
             }
         }
     }
+
+    post{
+        aways{
+            junit 'test-results/junit.xml'
+        }
+    }
 }

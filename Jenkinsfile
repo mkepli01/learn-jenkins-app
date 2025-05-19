@@ -3,7 +3,7 @@ pipeline {
 
     environment{
         NETLIFY_SITE_ID = '2b2df2ee-7bbf-4866-8df7-10f3eb06539b'
-        NETLIFY_AUTH_TOKEN = credentials('netlify-token'
+        NETLIFY_AUTH_TOKEN = credentials('netlify-token')
     }
 
     stages {
@@ -100,10 +100,10 @@ pipeline {
                 }
             }
 
-            environment{
-                CI_ENVIRONMENT_URL =  'https://astounding-gingersnap-7b6b1f.netlify.app'
-            }
 
+            environment{
+                CI_ENVIRONMENT_URL =  'https://astounding-gingersnap-7b6b1f.netlify.app/'
+            }
             steps{
                 sh'''
                     npx playwright test --reporter=html

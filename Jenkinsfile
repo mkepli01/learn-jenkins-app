@@ -131,26 +131,7 @@ pipeline {
             }
         }
 
-        stage('Deploy Prod') {
-            agent {
-                docker{
-                    image 'node:18-alpine'
-                    reuseNode true
-                }
-            }
-
-            steps {
-                sh '''
-                    npm install netlify-cli@20.1.1
-                    node_modules/.bin/netlify --version
-                    echo "Deploying to Netlify... Site ID: $NETLIFY_SITE_ID"
-                    node_modules/.bin/netlify status
-                    node_modules/.bin/netlify deploy --prod --dir build
-                '''
-            }
-        }
-
-        stage('Prod E2E'){
+        stage('Deploy Prod'){
             agent {
                 docker{
                     image 'mcr.microsoft.com/playwright:v1.39.0-jammy'
@@ -158,12 +139,17 @@ pipeline {
                 }
             }
 
-
             environment{
                 CI_ENVIRONMENT_URL =  'https://astounding-gingersnap-7b6b1f.netlify.app/'
             }
+
             steps{
                 sh'''
+                    npm install netlify-cli@20.1.1
+                    node_modules/.bin/netlify --version
+                    echo "Deploying to Netlify... Site ID: $NETLIFY_SITE_ID"
+                    node_modules/.bin/netlify status
+                    node_modules/.bin/netlify deploy --prod --dir build
                     npx playwright test --reporter=html
                 '''
             }
